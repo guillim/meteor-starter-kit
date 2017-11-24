@@ -1,0 +1,74 @@
+<template name="dashboard">
+	<div class="template-dashboard">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-3">
+					{{> addPost}}
+				</div>
+				<div class="col-md-9">
+					{{> posts}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="addPost">
+	<div class="template-add-post">
+		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">{{_ "add_post"}}</h3>
+				</div>
+				<div class="panel-body">
+					{{#autoForm id="add" collection="Posts" type="insert"}}
+					{{> afQuickField name="title"}}
+					{{> afQuickField name="content"}}
+					{{> afQuickField name="picture"}}
+					<button type="submit" class="btn btn-primary">{{_ "add_post_btn"}}</button>
+					{{/autoForm}}
+				</div>
+		</div>
+	</div>
+</template>
+
+<template name="posts">
+	<div class="template-posts">
+		{{#each  posts}}
+		{{> post}}
+		{{else}}
+		{{> noData}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="post">
+	<div class="template-post">
+		<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						{{title}}
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="media">
+						<a class="pull-left" href="#">
+							{{> avatar userId=owner initials="??" shape="circle"}}
+						</a>
+						<div class="media-body">
+							<p>{{content}}</p>
+							{{#if $eq owner User._id}}
+							<small>
+								{{#afModal title="Update post" omitFields="createdAt,updatedAt,owner" class="text-primary" collection="Posts" operation="update" doc=_id}}
+									<i class="fa fa-pencil" buttonContent="Edit post"></i> {{_ "edit_post"}}
+								{{/afModal}}
+								{{#afModal title="Delete post" class="text-danger" collection="Posts" operation="remove" doc=_id}}
+									<i class="fa fa-times" buttonContent="Edit post"></i> {{_ "delete"}}
+								{{/afModal}}
+							</small>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</template>
