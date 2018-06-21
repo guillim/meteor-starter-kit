@@ -26,3 +26,6 @@ finished ! go to http://localhost:3000 and see your meteor app running !!!
 * Add collections in `/collections/`
 * Create routes in `/lib/router/router.coffee` folder
 * Create views in `/client/views` folder
+
+
+TO DO: meteor add ecmascript
